@@ -5,6 +5,12 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :user_stocks
+  # has_many :stocks, through: :user_stocks
+  def stocks
+    Stock.in(id: user_stocks.pluck(:stock_id))
+  end
+
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""

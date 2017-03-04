@@ -4,6 +4,14 @@ class Stock
   field :name, type: String
   field :last_price, type: Money
 
+  has_many :user_stocks
+  # has_many :user, through: :user_stocks
+
+  def users
+    User.in(id: user_stocks.pluck(:stock_id))
+  end
+
+
   def self.find_by_ticker(ticker_symbol)
     where(ticker: ticker_symbol).first
   end

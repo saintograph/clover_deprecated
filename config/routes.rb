@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  resources :user_stocks
   devise_for :users
+  resources :user_stocks, except: [:show, :edit, :update]
   root 'welcome#index'
   get 'portfolio', to: 'users#portfolio'
   get 'search_stocks', to: 'stocks#search'
